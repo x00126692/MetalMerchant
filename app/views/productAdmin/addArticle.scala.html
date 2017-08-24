@@ -1,0 +1,36 @@
+@(addArticleForm: Form[models.products.Article], user: models.users.User)
+
+@import models.products._
+
+@import helper._
+
+@productAdmin.main("New Article", user) {
+
+	<h3>Add a new Article</h3>
+	
+	@form(action = routes.AdminProductCtrl.addArticleSubmit(), 'class -> "form-horizontal", 'role->"form", 'enctype -> "multipart/form-data") {
+
+		@inputText(addArticleForm("name"), '_label -> "Name",'class -> "form-control")
+		@inputText(addArticleForm("story"), '_label -> "Story",'class -> "form-control")
+
+        @for((value, name) <- Genre.options) {
+            <input type="checkbox" name="genSelect[]" value="@value" />@name<br>        
+        }
+
+
+		<label>Image</label>
+    <input class="btn-sm btn-default" type="file" name="upload">
+	
+		<br><br>
+
+  <div class="actions">
+      <input type="submit" value="Add Article" class="btn btn-primary">
+			<a href="@routes.AdminProductCtrl.listArticles(0)"
+				<button class="btn btn-warning">Cancel</button>
+			</a>
+  </div>
+	} 
+
+} 
+
+

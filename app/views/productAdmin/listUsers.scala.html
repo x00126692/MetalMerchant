@@ -1,0 +1,38 @@
+
+@import models.users.User
+@(users: List[User],user: User)
+
+
+@productAdmin.main("users Page", user) {
+
+        <div class ="users">
+<table>
+  <tr>
+    <th>Name:</th>
+    <th>Email:</th>
+  </tr>
+@for(u <- users) {
+
+ 
+  <tr>
+    <td style="color:white;">@u.getName</td>
+    <td style="color:white;">@u.getEmail</td>
+    
+  </tr>
+
+                  
+                  
+                 
+
+            
+         }
+</table>
+</div>
+
+<script>
+    function confirmBan() {
+        return confirm('Are you sure?');
+    }
+  </script>
+
+}

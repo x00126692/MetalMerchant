@@ -1,0 +1,88 @@
+@import models.products.Genre
+@import models.products.Article
+@import models.users.User
+@(env: play.api.Environment, genres: List[Genre], articles: List[Article], genId: Long, filter: String, user: User)
+
+@main("Products Page", user) {
+
+	<br>
+
+     <div class="row">
+        <div class="col-sm-2">
+	   <div class="list-group">
+			<a href="@routes.ProductCtrl.listArticles(0, filter)" class="list-group-item">All Articles</a>
+			@for(g <- genres) {
+		<a href="@routes.ProductCtrl.listArticles(g.getId, filter)" class="list-group-item">@g.getName</a>
+			}
+	</div>
+	  </div>
+
+		
+			@if(flash.containsKey("success")) {
+				  <div class="alert alert-success">
+					  @flash.get("success")
+				  </div>
+			}
+
+			<div id="actions">
+			 <form action="@routes.ProductCtrl.listArticles(genId)" method="GET">
+				<input type="search" id="searchbox" name="filter" value="@filter" placeholder="Filter by product name...">
+				<input type="submit" id="searchsubmit" value="Filter by name" class="btn-md btn-primary">
+			 </form>
+   
+			</div>
+           
+                        <br>
+        
+
+
+                    <div class="col-sm-10">
+
+                        @if(flash.containsKey("success")) {
+                            <div class="alert alert-success">
+                            @flash.get("success")
+                            </div>
+                        }
+
+                    @for(a <- articles) {
+<aside class="bg-dark">
+            <div class="container text-center">
+                <div class="call-to-action">
+                        <div class="row">
+                            <div class="col-md-5">
+          
+            <a href="#">
+         
+			        
+                  @if(env.resource("public/images/articleImages/thumbnails/" + a.getId + ".jpg").isDefined) {
+                       <img src="/assets/images/articleImages/thumbnails/@(a.getId + ".jpg")"/>
+                   } else {
+                       <td><img src="/assets/images/articleImages/thumbnails/noImage.png"/>
+             
+                   }
+                  </a>
+                  </div>
+                  <div class="col-md-3">
+                  <h2><u>@a.getName</u></h2>
+                  <p>@a.getStory</p>
+                  
+                  
+        
+
+
+        </div>
+        </div>
+                        </div>
+                    </div>
+                        
+        </aside>
+        <br>
+        <br>
+         }
+        
+  </div>
+  </div>
+
+
+			
+}

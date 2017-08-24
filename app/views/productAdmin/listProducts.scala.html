@@ -1,0 +1,106 @@
+@import models.products.Category
+@import models.products.Product
+@import models.users.User
+@(env: play.api.Environment, categories: List[Category], products: List[Product], user: User)
+
+@productAdmin.main("Products Page", user) {
+
+<br>
+
+     <div class="row">
+        <div class="col-sm-2">
+	   <div class="list-group">
+			
+			<a href="@routes.AdminProductCtrl.listProducts(0)" class="list-group-item">All categories</a>
+			@for(c <- categories) {
+		<a href="@routes.AdminProductCtrl.listProducts(c.getId)" class="list-group-item">@c.getName</a>
+			}
+	</div>
+	  </div>
+
+
+			
+           
+                        <br>
+         
+
+
+                    <div class="col-sm-10">
+                        @if(flash.containsKey("success")) {
+				  <div class="alert alert-success">
+					  @flash.get("success")
+				  </div>
+			}
+                        
+
+                    @for(p <- products) {
+<aside class="bg-dark">
+            <div class="container text-center">
+                <div class="call-to-action">
+                        <div class="row">
+                            <div class="col-md-5">
+          
+            <a href="#">
+         
+			        
+                  @if(env.resource("public/images/productImages/thumbnails/" + p.getId + ".jpg").isDefined) {
+                       <img src="/assets/images/productImages/thumbnails/@(p.getId + ".jpg")"/>
+                   } else {
+                       <td><img src="/assets/images/productImages/thumbnails/noImage.png"/>
+             
+                   }
+                  </a>
+                  </div>
+                  <div class="col-md-3">
+                  <h2><u>@p.getName</u></h2>
+                  <p>@p.getDescription</p>
+                  <p>Stock: @p.getStock</p>
+                  <p> Price: 
+                  &euro; @("%.2f".format(p.getPrice))
+                  </p>
+                  <table>
+                        <th>Options</th>
+                        <tr>
+                        <td>
+                  <a href="@routes.AdminProductCtrl.updateProduct(p.getId)" class="btn-xs btn-danger">
+                      <span class="glyphicon glyphicon-pencil"></span></a>
+                      
+                  </td>
+                  <td>
+                  <a href="@routes.AdminProductCtrl.deleteProduct(p.getId)"  class="btn-xs btn-danger"
+                        onclick="return confirmDel();">
+                        <span class="glyphicon glyphicon-trash"></span>
+                      </a>
+                      
+                  </td>
+				    </tr>
+					 
+          </tbody>
+        </table>
+                  
+        </div>
+        </div>
+                       </div>
+                    </div>
+                        
+        </aside>
+        <br>
+        <br>
+         }
+       </div>
+            <div class="add">
+                    <p>
+          <a href="@routes.AdminProductCtrl.addProduct()">
+            <button class="btn btn-primary">Add Product</button>
+          </a>
+        </p>
+        </div>
+    </div>
+    </div>
+      <script>
+    function confirmDel() {
+        return confirm('Are you sure?');
+    }
+  </script>
+			
+}

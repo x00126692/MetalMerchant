@@ -1,0 +1,32 @@
+@(addCustomerForm: Form[models.users.Customer],user: models.users.User)
+
+@import helper._
+
+@import models.products._
+
+@(addCustomerForm: Form[models.users.Customer])
+
+@main("Add Customer",user){
+<h3><strong><u>Registration Form</u></strong></h3>
+
+
+	@form(action = controllers.routes.ProductCtrl.addCustomerSubmit(), 'class -> "form-hotizontal", 'role->"form", 'enctype -> "multipart/form-data") {
+@inputText(addCustomerForm("name"), '_label -> "Name", 'class -> "form-control input-xs")
+@inputText(addCustomerForm("email"), '_label -> "Email", 'class -> "form-control input-xs")
+@inputText(addCustomerForm("password"), '_label -> "Password", 'class -> "form-control input-xs")
+
+@inputText(addCustomerForm("street1"), '_label -> "Street 1", 'class -> "form-control input-xs")
+@inputText(addCustomerForm("street2"), '_label -> "Street 2", 'class -> "form-control input-xs")
+@inputText(addCustomerForm("town"), '_label -> "Town", 'class -> "form-control input-xs")
+@inputText(addCustomerForm("postCode"), '_label -> "Post Code", 'class -> "form-control input-xs")
+@inputText(addCustomerForm("creditCard"), '_label -> "Credit Card Number", 'class -> "form-control input-xs")
+
+
+<div class="actions">
+<input type="submit" value="Register" class="btn btn-primary">
+<a href="@controllers.routes.ProductCtrl.listProducts(0)"
+<button class ="btn btn-warning">Cancel</button>
+</a>
+</div>
+}
+}

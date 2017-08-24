@@ -1,0 +1,28 @@
+@(customer: models.users.Customer)
+
+@import play.api.Play.resource
+@import play.api.Play.current
+
+@main("profile", customer) {
+<aside class="bg-dark">
+        <div class="container text-center">
+            <div class="call-to-action">
+<br>
+<h3 >Profile</h3>
+<br>
+
+<p align="left"><strong>Name:</strong> @customer.getName</p></li>
+<p align="left"><strong>Email:</strong> @customer.getEmail</p></li>
+<br>
+<p align="left"><strong>Address:</strong></p>
+<h5 align="left">@customer.getStreet1</h5>
+<h5 align="left">@customer.getStreet2</h5>
+<h5 align="left">@customer.getTown</h5>
+<h5 align="left">@customer.getPostCode</h5>
+
+<br>
+<p align="left"><strong>Credit Card Number:</strong> @customer.getCreditCard</p>
+</ul>
+<br>
+
+}

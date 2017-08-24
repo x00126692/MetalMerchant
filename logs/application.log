@@ -1,0 +1,4 @@
+2017-08-24 17:21:44,259 [INFO] from play.core.server.NettyServer in pool-5-thread-2 - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+2017-08-24 17:23:44,974 [INFO] from application in ForkJoinPool-1-worker-1 - Creating Pool for datasource 'default'
+2017-08-24 17:23:45,519 [INFO] from play.api.db.DefaultDBApi in ForkJoinPool-1-worker-1 - Database [default] connected at jdbc:h2:file:./data/productsDB
+2017-08-24 17:23:59,189 [INFO] from play.api.Play in ForkJoinPool-1-worker-1 - Application started (Dev)

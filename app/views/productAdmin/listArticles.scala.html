@@ -1,0 +1,105 @@
+@import models.products.Genre
+@import models.products.Article
+@import models.users.User
+@(env: play.api.Environment, genres: List[Genre], articles: List[Article], user: User)
+
+@productAdmin.main("Articles Page", user) {
+
+<br>
+
+     <div class="row">
+        <div class="col-sm-2">
+	   <div class="list-group">
+			
+			<a href="@routes.AdminProductCtrl.listArticles(0)" class="list-group-item">All Genres</a>
+			@for(g <- genres) {
+		<a href="@routes.AdminProductCtrl.listArticles(g.getId)" class="list-group-item">@g.getName</a>
+			}
+	</div>
+	  </div>
+
+		
+
+
+			
+           
+                        <br>
+        
+
+
+                    <div class="col-sm-10">
+
+                        @if(flash.containsKey("success")) {
+                            <div class="alert alert-success">
+                            @flash.get("success")
+                            </div>
+                        }
+
+                    @for(a <- articles) {
+<aside class="bg-dark">
+            <div class="container text-center">
+                <div class="call-to-action">
+                        <div class="row">
+                            <div class="col-md-5">
+          
+            <a href="#">
+         
+			        
+                  @if(env.resource("public/images/articleImages/thumbnails/" + a.getId + ".jpg").isDefined) {
+                       <img src="/assets/images/articleImages/thumbnails/@(a.getId + ".jpg")"/>
+                   } else {
+                       <td><img src="/assets/images/articleImages/thumbnails/noImage.png"/>
+             
+                   }
+                  </a>
+                  </div>
+                  <div class="col-md-3">
+                  <h2><u>@a.getName</u></h2>
+                  <p>@a.getStory</p>
+                  
+                  <table>
+                        <th>Options</th>
+                        <tr>
+                        <td>
+                  <a href="@routes.AdminProductCtrl.updateArticle(a.getId)" class="btn-xs btn-danger">
+                      <span class="glyphicon glyphicon-pencil"></span></a>
+                      
+                  </td>
+                  <td>
+                  <a href="@routes.AdminProductCtrl.deleteArticle(a.getId)"  class="btn-xs btn-danger"
+                        onclick="return confirmDel();">
+                        <span class="glyphicon glyphicon-trash"></span>
+                      </a>
+                      
+                  </td>
+				    </tr>
+					
+          </tbody>
+        </table>
+                  
+        </div>
+        </div>
+                       </div>
+                    </div>
+                        
+        </aside>
+        <br>
+        <br>
+         }
+       </div>
+            <div class="add">
+                    <p>
+          <a href="@routes.AdminProductCtrl.addArticle()">
+            <button class="btn btn-primary">Add Article</button>
+          </a>
+        </p>
+        </div>
+    </div>
+    </div>
+      <script>
+    function confirmDel() {
+        return confirm('Are you sure?');
+    }
+  </script>
+			
+}
